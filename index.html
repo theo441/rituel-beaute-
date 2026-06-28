@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon rituel beauté — Ongles, maquillage &amp; soin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;0,600;1,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#2B1B26;
+    --surface:#3A2433;
+    --surface-2:#43293A;
+    --cream:#F7ECE3;
+    --muted:#C9B8BE;
+    --rose:#E0667B;
+    --rose-deep:#B84B60;
+    --gold:#D9A24B;
+    --gold-deep:#B5803A;
+    --sage:#8FA88A;
+    --sage-deep:#6E8A6A;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 15% 0%, rgba(224,102,123,0.10), transparent 45%),
+      radial-gradient(circle at 85% 10%, rgba(217,162,75,0.08), transparent 45%),
+      var(--bg);
+    color:var(--cream);
+    font-family:"Work Sans", sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+
+  .wrap{max-width:680px;margin:0 auto;padding:0 20px 80px;}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:48px 20px 28px;text-align:center;}
+  .hero__eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--muted);font-weight:600;
+  }
+  .hero__eyebrow::before,.hero__eyebrow::after{
+    content:"";width:18px;height:1px;background:var(--muted);opacity:.6;
+  }
+  .hero__title{
+    font-family:"Fraunces", serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:clamp(34px,7vw,52px);
+    margin:14px 0 10px;
+    background:linear-gradient(95deg,var(--rose),var(--gold) 55%,var(--sage));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero__sub{
+    max-width:440px;margin:0 auto;color:var(--muted);
+    font-size:15px;
+  }
+
+  /* ---------- TABS (CSS only, radio-driven) ---------- */
+  .tab-radio{position:absolute;opacity:0;pointer-events:none;}
+  .tabs{
+    position:sticky;top:0;z-index:10;
+    display:flex;gap:8px;
+    padding:14px 20px;
+    background:linear-gradient(var(--bg) 70%, transparent);
+    max-width:680px;margin:0 auto;
+  }
+  .tab{
+    flex:1;text-align:center;cursor:pointer;
+    position:relative;
+    padding:12px 6px 10px;
+    border-radius:14px 14px 5px 5px;
+    background:var(--surface);
+    color:var(--muted);
+    font-size:13px;font-weight:600;letter-spacing:.02em;
+    border:1px solid rgba(255,255,255,0.06);
+    transition:background .25s ease, color .25s ease, transform .15s ease;
+  }
+  .tab::before{
+    content:"";position:absolute;top:-4px;left:50%;transform:translateX(-50%);
+    width:14px;height:6px;border-radius:3px 3px 0 0;background:var(--surface);
+    transition:background .25s ease;
+  }
+  .tab:active{transform:translateY(1px);}
+  .tab:focus-visible{outline:2px solid var(--cream);outline-offset:2px;}
+
+  #tab-ongles:checked ~ .tabs label[for="tab-ongles"],
+  #tab-makeup:checked ~ .tabs label[for="tab-makeup"],
+  #tab-skin:checked   ~ .tabs label[for="tab-skin"]{
+    color:var(--bg);
+  }
+  #tab-ongles:checked ~ .tabs label[for="tab-ongles"]{background:var(--rose);}
+  #tab-ongles:checked ~ .tabs label[for="tab-ongles"]::before{background:var(--rose);}
+  #tab-makeup:checked ~ .tabs label[for="tab-makeup"]{background:var(--gold);}
+  #tab-makeup:checked ~ .tabs label[for="tab-makeup"]::before{background:var(--gold);}
+  #tab-skin:checked   ~ .tabs label[for="tab-skin"]{background:var(--sage);}
+  #tab-skin:checked   ~ .tabs label[for="tab-skin"]::before{background:var(--sage);}
+
+  .panel{display:none;padding-top:6px;}
+  #tab-ongles:checked ~ .panels #panel-ongles{display:block;}
+  #tab-makeup:checked ~ .panels #panel-makeup{display:block;}
+  #tab-skin:checked   ~ .panels #panel-skin{display:block;}
+
+  .panel__intro{
+    font-family:"Fraunces", serif;font-style:italic;font-weight:400;
+    font-size:17px;color:var(--cream);opacity:.9;
+    margin:8px 4px 22px;
+  }
+
+  /* ---------- ACCORDIONS ---------- */
+  .acc{
+    background:var(--surface);
+    border:1px solid rgba(255,255,255,0.06);
+    border-radius:14px;
+    margin-bottom:12px;
+    overflow:hidden;
+  }
+  .acc__head{
+    list-style:none;cursor:pointer;
+    display:flex;align-items:center;gap:12px;
+    padding:16px 16px;
+    font-weight:600;
+  }
+  .acc__head::-webkit-details-marker{display:none;}
+  .acc__head:focus-visible{outline:2px solid var(--cream);outline-offset:-2px;border-radius:10px;}
+
+  .acc__marker{
+    flex:0 0 auto;
+    width:26px;height:32px;
+    border-radius:50% 50% 7px 7px / 60% 60% 10px 10px;
+    display:flex;align-items:center;justify-content:center;
+    font-family:"Work Sans",sans-serif;font-size:12px;font-weight:700;
+    color:var(--bg);
+    position:relative;
+  }
+  .acc__marker::after{
+    content:"";position:absolute;top:4px;left:5px;
+    width:7px;height:11px;border-radius:50%;
+    background:rgba(255,255,255,0.45);
+    filter:blur(.3px);
+  }
+  .acc__marker--rose{background:linear-gradient(160deg,var(--rose),var(--rose-deep));}
+  .acc__marker--gold{background:linear-gradient(160deg,var(--gold),var(--gold-deep));}
+  .acc__marker--sage{background:linear-gradient(160deg,var(--sage),var(--sage-deep));}
+
+  .acc__title{flex:1;font-size:15.5px;}
+  .acc__chevron{flex:0 0 auto;transition:transform .2s ease;opacity:.7;}
+  details.acc[open] .acc__chevron{transform:rotate(180deg);}
+  @media (prefers-reduced-motion: reduce){
+    .acc__chevron{transition:none;}
+  }
+
+  .acc__body{padding:0 16px 18px 16px;}
+
+  .step{display:flex;gap:12px;margin-bottom:14px;align-items:flex-start;}
+  .step:last-child{margin-bottom:0;}
+  .step__num{
+    flex:0 0 auto;width:22px;height:22px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-size:11px;font-weight:700;color:var(--bg);
+    margin-top:1px;
+  }
+  .step__num--rose{background:var(--rose);}
+  .step__num--gold{background:var(--gold);}
+  .step__num--sage{background:var(--sage);}
+  .step p{margin:0;font-size:14.5px;color:var(--cream);opacity:.92;}
+
+  .tip{
+    margin-top:14px;padding:12px 14px;border-radius:10px;
+    background:rgba(255,255,255,0.04);
+    border-left:3px solid var(--rose);
+    font-size:13.5px;color:var(--muted);
+  }
+  .tip--gold{border-left-color:var(--gold);}
+  .tip--sage{border-left-color:var(--sage);}
+  .tip__label{
+    display:block;text-transform:uppercase;letter-spacing:.12em;
+    font-size:10.5px;font-weight:700;color:var(--cream);opacity:.8;margin-bottom:3px;
+  }
+
+  .sub-divider{
+    margin:30px 4px 16px;display:flex;align-items:center;gap:10px;
+    font-family:"Fraunces",serif;font-style:italic;font-size:13px;
+    color:var(--muted);text-transform:none;letter-spacing:.02em;
+  }
+  .sub-divider::after{content:"";flex:1;height:1px;background:rgba(255,255,255,0.1);}
+
+  .footer{
+    text-align:center;color:var(--muted);font-size:12.5px;
+    padding:30px 24px 10px;opacity:.75;
+  }
+
+  @media (max-width:420px){
+    .tab{font-size:12px;padding:11px 4px 9px;}
+    .acc__title{font-size:14.5px;}
+  }
+</style>
+</head>
+<body>
+
+  <header class="hero">
+    <span class="hero__eyebrow">Atelier beauté</span>
+    <h1 class="hero__title">Mon rituel beauté</h1>
+    <p class="hero__sub">Ongles, maquillage et soin de la peau — étape par étape, du geste de base à la touche finale.</p>
+  </header>
+
+  <div class="tabs-input">
+    <input type="radio" name="tab" id="tab-ongles" class="tab-radio" checked>
+    <input type="radio" name="tab" id="tab-makeup" class="tab-radio">
+    <input type="radio" name="tab" id="tab-skin" class="tab-radio">
+
+    <nav class="tabs">
+      <label for="tab-ongles" class="tab">💅 Ongles</label>
+      <label for="tab-makeup" class="tab">💄 Maquillage</label>
+      <label for="tab-skin" class="tab">🌿 Skincare</label>
+    </nav>
+
+    <main class="panels">
+
+      <!-- ===================== ONGLES ===================== -->
+      <section id="panel-ongles" class="panel">
+        <div class="wrap" style="padding-top:0;">
+          <p class="panel__intro">Du soin de l'ongle nu jusqu'au nail art 3D, sans rien abîmer en route.</p>
+
+          <details class="acc" open>
+            <summary class="acc__head">
+              <span class="acc__marker acc__marker--rose">1</span>
+              <span class="acc__title">Préparer l'ongle naturel</span>
+              <svg class="acc__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="acc__body">
+              <div class="step"><span class="step__num step__num--rose">1</span><p>Repousser les cuticules avec un bâtonnet de buis après un petit bain d'eau tiède, pour les assouplir.</p></div>
+              <div class="step"><span class="step__num step__num--rose">2</span><p>Matifier légèrement la surface avec un buffer doux, sans poncer trop fin : juste de quoi enlever le brillant naturel.</p></div>
+              <div class="step"><span class="step__num step__num--rose">3</span><p>Dégraisser tout l'ongle, jusqu'au bord, avec un cleanser ou de l'alcool isopropylique.</p></div>
+              <div class="step"><span class="step__num step__num--rose">4</span><p>Appliquer une primer si ton gel le demande, pour une meilleure accroche.</p></div>
+              <div class="tip"><span class="tip__label">Astuce</span>Plus l'ongle est propre et mat, plus la pose tient longtemps — ne sautez jamais cette étape.</div>
+            </div>
+          </details>
+
+          <details class="acc">
+            <summary class="acc__head">
+              <span class="acc__marker acc__marker--rose">2</span>
+              <span class="acc__title">Poser des capsules</span>
+              <svg class="acc__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="acc__body">
+              <div class="step"><span class="step__num step__num--rose">1</span><p>Choisir la capsule qui couvre toute la largeur de l'ongle, bord à bord, sans déborder sur les côtés.</p></div>
+              <div class="step"><span class="step__num step__num--rose">2</span><p>Déposer une petite goutte de colle sur la capsule (pas sur l'ongle), la positionner à 45° puis la rabattre pour chasser l'air.</p></div>
+              <div class="step"><span class="step__num step__num--rose">3</span><p>Maintenir une pression légère 5 à 10 secondes.</p></div>
+              <div class="step"><span class="step__num step__num--rose">4</span><p>Couper la longueur au coupe-capsule, puis limer la forme choisie (amande, carré, ballerine...).</p></div>
+              <div class="step"><span class="step__num step__num--rose">5</span><p>Limer la jonction entre la capsule et l'ongle naturel pour effacer la marche et égaliser la surface.</p></div>
+            </div>
+          </details>
+
+          <details class="acc">
+            <summary class="acc__head">
+              <span class="acc__marker acc__marker--rose">3</span>
+              <span class="acc__title">Appliquer le gel (UV/LED)</span>
+              <svg class="acc__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="acc__body">
+              <div class="step"><span class="step__num step__num--rose">1</span><p>Base coat en couche fine sur tout l'ongle sans toucher la peau, puis cuisson en lampe (30-60 sec LED, 2 min UV).</p></div>
+              <div class="step"><span class="step__num step__num--rose">2</span><p>Couleur en 2 couches fines — jamais une couche épaise, qui plisse et cuit mal — en cuisant chaque couche.</p></div>
+              <div class="step"><span class="step__num step__num--rose">3</span><p>Combler le bord libre à chaque couche pour éviter que le gel se décolle en bout d'ongle.</p></div>
+              <div class="step"><span class="step__num step__num--rose">4</span><p>Top coat, cuisson, puis essuyer le film collant avec un coton imbibé d'alcool ou de cleanser.</p></div>
+              <div class="step"><span class="step__num step__num--rose">5</span><p>Terminer par une huile pour cuticules et ongle.</p></div>
+            </div>
+          </details>
+
+          <details class="acc">
+            <summary class="acc__head">
+              <span class="acc__marker acc__marker--rose">4</span>
+              <span class="acc__title">Appliquer un vernis classique</span>
+              <svg class="acc__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="acc__body">
+              <div class="step"><span class="step__num step__num--rose">1</span><p>Base coat protectrice, laisser sécher 1-2 minutes.</p></div>
+              <div class="step"><span class="step__num step__num--rose">2</span><p>2 couches fines de couleur, en 3 mouvements de pinceau (centre puis les 2 côtés), en séchant entre les couches.</p></div>
+              <div class="step"><span class="step__num step__num--rose">3</span><p>Repasser au bord libre à chaque couche pour prolonger la tenue.</p></div>
+              <div class="step"><span class="step__num step__num--rose">4</span><p>Top coat brillant pour sceller et accélérer le séchage en surface.</p></div>
+              <div class="tip"><span class="tip__label">Astuce</span>Des gouttes séchantes ou un jet d'eau bien froide après la dernière couche accélèrent le séchage complet.</div>
+            </div>
+          </details>
+
+          <details class="acc">
+            <summary class="acc__head">
+              <span class="acc__marker acc__marker--rose">5</span>
+              <span class="acc__title">Retirer un vernis classique</span>
+              <svg class="acc__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="acc__body">
+              <div class="step"><span class="step__num step__num--rose">1</span><p>Imbiber un coton de dissolvant (doux, sans acétone si possible).</p></div>
+              <div class="step"><span class="step__num step__num--rose">2</span><p>Presser le coton sur l'ongle 5-10 secondes sans frotter, puis essuyer en un seul geste du haut vers le bas.</p></div>
+              <div class="step"><span class="step__num step__num--rose">3</span><p>Pour un vernis pailleté ou très tenace, envelopper l'ongle d'un carré de papier aluminium avec le coton, 5 minutes de pause.</p></div>
+            </div>
+          </details>
+
+          <details class="acc">
+            <summary class="acc__head">
+              <span class="acc__marker acc__marker--rose">6</span>
+              <span class="acc__title">Retirer le gel et les capsules</span>
+              <svg class="acc__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="acc__body">
+              <div class="step"><span class="step__num step__num--rose">1</span><p>Limer délicatement le film brillant du top coat, sans creuser dans l'ongle naturel.</p></div>
+              <div class="step"><span class="step__num step__num--rose">2</span><p>Coton imbibé d'acétone pure sur chaque ongle, enveloppé dans du papier aluminium, pose de 10-15 minutes.</p></div>
+              <div class="step"><span class="step__num step__num--rose">3</span><p>Retirer le papier et faire glisser le gel ramolli avec un pushy — jamais en grattant ou en tirant.</p></div>
+              <div class="step"><span class="step__num step__num--rose">4</span><p>Si ça résiste, ne pas forcer : remettre de l'acétone et patienter encore pour ne pas abîmer la plaque de l'ongle.</p></div>
+              <div class="step"><span class="step__num step__num--rose">5</span><p>Repolir très légèrement et nourrir d'huile à cuticules.</p></div>
+            </div>
+          </details>
+
+          <details class="acc">
+            <summary class="acc__head">
+              <span class="acc__marker acc__marker--rose">7</span>
+              <span class="acc__title">Pareil pour les orteils</span>
+              <svg class="acc__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="acc__body">
+              <div class="step"><span class="step__num step__num--rose">1</span><p>Bain de pieds tiède 5-10 minutes pour assouplir peau et cuticules.</p></div>
+              <div class="step"><span class="step__num step__num--rose">2</span><p>Couper les ongles bien droit, sans trop arrondir les coins, pour éviter les ongles incarnés.</p></div>
+              <div class="step"><span class="step__num step__num--rose">3</span><p>Limer doucement les bords après la coupe.</p></div>
+              <div class="step"><span class="step__num step__num--rose">4</span><p>Poser le gel ou le vernis comme pour les mains, avec des séparateurs d'orteils pour un résultat net.</p></div>
+              <div class="step"><span class="step__num step__num--rose">5</span><p>Prévoir un temps de séchage plus long avant de remettre des chaussures fermées.</p></div>
+            </div>
+          </details>
+
+          <div class="sub-divider">Le nail art</div>
+
+          <details class="acc">
+            <summary class="acc__head">
+              <span class="acc__marker acc__marker--rose">8</span>
+              <span class="acc__title">Modèles simples, juste au vernis</span>
+              <svg class="acc__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="acc__body">
+              <div class="step"><span class="step__num step__num--rose">1</span><p><strong>French manucure</strong> : un vernis nude ou rosé en fond, puis le bout blanc au pinceau fin ou avec un guide adhésif.</p></div>
+              <div class="step"><span class="step__num step__num--rose">2</span><p><strong>Dégradé (ombré)</strong> : éponger 2 couleurs avec une éponge à maquillage directement sur l'ongle.</p></div>
+              <div class="step"><span class="step__num step__num--rose">3</span><p><strong>Marbré</strong> : déposer des gouttes de vernis dans l'eau, les faire tourner au cure-dent puis tremper l'ongle.</p></div>
+              <div class="step"><span class="step__num step__num--rose">4</span><p><strong>Pois et petites fleurs</strong> : la pointe d'un cure-dent ou d'un pinceau fin pour des points, à combiner en motif.</p></div>
+              <div class="tip"><span class="tip__label">Astuce</span>Toujours finir par un top coat : il fixe le motif et le rend brillant et résistant.</div>
+            </div>
+          </details>
+
+          <details class="acc">
+            <summary class="acc__head">
+              <span class="acc__marker acc__marker--rose">9</span>
+              <span class="acc__title">Nail art 3D sur ongles en gel</span>
+              <svg class="acc__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="acc__body">
+              <div class="step"><span class="step__num step__num--rose">1</span><p><strong>Encapsulation</strong> : déposer paillettes ou fleurs séchées entre deux couches de gel transparent, en cuisant entre chaque couche.</p></div>
+              <div class="step"><span class="step__num step__num--rose">2</span><p><strong>Fleurs 3D</strong> : façonner les pétales au pinceau avec un gel sculptant, cuire chaque pétale puis assembler au centre.</p></div>
+              <div class="step"><span class="step__num step__num--rose">3</span><p><strong>Strass et perles</strong> : les poser sur une couche de gel non cuite, puis cuire pour les figer ; sceller avec un top coat sans lampe (le top classique peut les ternir).</p></div>
+              <div class="step"><span class="step__num step__num--rose">4</span><p><strong>Poudre acrylique 3D</strong> : tremper le pinceau dans le monomère puis dans la poudre, et façonner la forme avant qu'elle ne durcisse.</p></div>
+            </div>
+          </details>
+
+        </div>
+      </section>
+
+      <!-- ===================== MAQUILLAGE ===================== -->
+      <section id="panel-makeup" class="panel">
+        <div class="wrap" style="padding-top:0;">
+          <p class="panel__intro">L'ordre qui change tout : du teint unifié aux yeux, jusqu'au démaquillage du soir.</p>
+
+          <details class="acc" open>
+            <summary class="acc__head">
+              <span class="acc__marker acc__marker--gold">1</span>
+              <span class="acc__title">Préparer la peau</span>
+              <svg class="acc__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="acc__body">
+              <div class="step"><span class="step__num step__num--gold">1</span><p>Hydrater avec une crème adaptée à ton type de peau, laisser pénétrer 2-3 minutes.</p></div>
+              <div class="step"><span class="step__num step__num--gold">2</span><p>Appliquer une base (primer) pour lisser le grain de peau et faire tenir le maquillage plus longtemps.</p></div>
+            </div>
+          </details>
+
+          <details class="acc">
+            <summary class="acc__head">
+              <span class="acc__marker acc__marker--gold">2</span>
+              <span class="acc__title">Anti-cernes</span>
+              <svg class="acc__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="acc__body">
+              <div class="step"><span class="step__num step__num--gold">1</span><p>Une teinte légèrement plus claire que ton fond de teint, posée en triangle inversé sous l'œil.</p></div>
+              <div class="step"><span class="step__num step__num--gold">2</span><p>Tapoter avec l'annulaire ou une éponge, du centre vers l'extérieur, sans frotter.</p></div>
+              <div class="step"><span class="step__num step__num--gold">3</span><p>Fixer avec un voile de poudre libre translucide pour éviter qu'il ne se marque dans la journée.</p></div>
+            </div>
+          </details>
+
+          <details class="acc">
+            <summary class="acc__head">
+              <span class="acc__marker acc__marker--gold">3</span>
+              <span class="acc__title">Fond de teint</span>
+              <svg class="acc__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="acc__body">
+              <div class="step"><span class="step__num step__num--gold">1</span><p>Tester la teinte sur la mâchoire, à la lumière du jour, pour qu'elle se fonde dans le cou.</p></div>
+              <div class="step"><span class="step__num step__num--gold">2</span><p>Appliquer au pinceau, à l'éponge humide ou aux doigts, du centre du visage vers l'extérieur.</p></div>
+              <div class="step"><span class="step__num step__num--gold">3</span><p>Tapoter plutôt qu'étirer, pour une finition naturelle, en estompant bien sur la mâchoire et le cou.</p></div>
+            </div>
+          </details>
+
+          <details class="acc">
+            <summary class="acc__head">
+              <span class="acc__marker acc__marker--gold">4</span>
+              <span class="acc__title">Blush</span>
+              <svg class="acc__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="acc__body">
+              <div class="step"><span class="step__num step__num--gold">1</span><p>Sourire pour repérer le haut des pommettes, puis appliquer en mouvements circulaires.</p></div>
+              <div class="step"><span class="step__num step__num--gold">2</span><p>Pour un effet plus jeune, remonter aussi un peu vers les tempes.</p></div>
+              <div class="step"><span class="step__num step__num--gold">3</span><p>Toujours estomper les bords avec un pinceau propre pour éviter les démarcations.</p></div>
+            </div>
+          </details>
+
+          <details class="acc">
+            <summary class="acc__head">
+              <span class="acc__marker acc__marker--gold">5</span>
+              <span class="acc__title">Bronzer / contouring</span>
+              <svg class="acc__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="acc__body">
+              <div class="step"><span class="step__num step__num--gold">1</span><p>Appliquer dans les creux : tempes, sous la pommette, le long de la mâchoire, ailes du nez.</p></div>
+              <div class="step"><span class="step__num step__num--gold">2</span><p>Pinceau légèrement chargé, mouvements en forme de "3" de chaque côté du visage.</p></div>
+              <div class="step"><span class="step__num step__num--gold">3</span><p>Estomper avec une brosse propre ou une éponge pour fondre toutes les transitions.</p></div>
+            </div>
+          </details>
+
+          <details class="acc">
+            <summary class="acc__head">
+              <span class="acc__marker acc__marker--gold">6</span>
+              <span class="acc__title">Lèvres</span>
+              <svg class="acc__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="acc__body">
+              <div class="step"><span class="step__num step__num--gold">1</span><p>Hydrater les lèvres avant, faire un léger gommage si elles sont sèches.</p></div>
+              <div class="step"><span class="step__num step__num--gold">2</span><p>Tracer le contour au crayon, sur ou juste à l'intérieur de la ligne naturelle.</p></div>
+              <div class="step"><span class="step__num step__num--gold">3</span><p>Remplir l'intérieur des lèvres au crayon pour une meilleure tenue du rouge à lèvres.</p></div>
+              <div class="step"><span class="step__num step__num--gold">4</span><p>Appliquer le rouge à lèvres ou le gloss au pinceau pour plus de précision.</p></div>
+            </div>
+          </details>
+
+          <details class="acc">
+            <summary class="acc__head">
+              <span class="acc__marker acc__marker--gold">7</span>
+              <span class="acc__title">Mascara</span>
+              <svg class="acc__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="acc__body">
+              <div class="step"><span class="step__num step__num--gold">1</span><p>Recourber les cils avant application pour un effet "regard ouvert".</p></div>
+              <div class="step"><span class="step__num step__num--gold">2</span><p>Appliquer en zigzag de la base vers la pointe, cils du haut puis du bas.</p></div>
+              <div class="step"><span class="step__num step__num--gold">3</span><p>Laisser sécher 30 secondes avant une 2ᵉ couche si besoin, pour éviter les paquets.</p></div>
+            </div>
+          </details>
+
+          <details class="acc">
+            <summary class="acc__head">
+              <span class="acc__marker acc__marker--gold">8</span>
+              <span class="acc__title">Démaquillage</span>
+              <svg class="acc__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="acc__body">
+              <div class="step"><span class="step__num step__num--gold">1</span><p>Yeux d'abord : démaquillant biphasé (huile + eau) sur un coton, posé 10 secondes sans frotter pour dissoudre le waterproof.</p></div>
+              <div class="step"><span class="step__num step__num--gold">2</span><p>Visage : huile ou lait démaquillant en mouvements circulaires pour dissoudre fond de teint et bronzer.</p></div>
+              <div class="step"><span class="step__num step__num--gold">3</span><p>Repasser à l'eau micellaire ou au tonique pour retirer les derniers résidus.</p></div>
+              <div class="step"><span class="step__num step__num--gold">4</span><p>Terminer par le nettoyant doux de la routine du soir.</p></div>
+            </div>
+          </details>
+
+        </div>
+      </section>
+
+      <!-- ===================== SKINCARE ===================== -->
+      <section id="panel-skin" class="panel">
+        <div class="wrap" style="padding-top:0;">
+          <p class="panel__intro">Deux routines courtes mais régulières valent mieux qu'une routine longue qu'on abandonne.</p>
+
+          <details class="acc" open>
+            <summary class="acc__head">
+              <span class="acc__marker acc__marker--sage">☀</span>
+              <span class="acc__title">Routine du matin</span>
+              <svg class="acc__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="acc__body">
+              <div class="step"><span class="step__num step__num--sage">1</span><p>Nettoyant doux (eau ou lait selon ta peau) pour repartir sur une peau propre.</p></div>
+              <div class="step"><span class="step__num step__num--sage">2</span><p>Tonique ou eau micellaire pour rééquilibrer la peau.</p></div>
+              <div class="step"><span class="step__num step__num--sage">3</span><p>Sérum (vitamine C par exemple) pour l'éclat.</p></div>
+              <div class="step"><span class="step__num step__num--sage">4</span><p>Crème hydratante adaptée à ton type de peau.</p></div>
+              <div class="step"><span class="step__num step__num--sage">5</span><p>Protection solaire (SPF) — indispensable même sous le maquillage.</p></div>
+              <div class="step"><span class="step__num step__num--sage">6</span><p>Hygiène complémentaire : brossage des dents 2 minutes, soin ou brushing des cheveux, une noisette de crème pour les mains ou le corps.</p></div>
+            </div>
+          </details>
+
+          <details class="acc">
+            <summary class="acc__head">
+              <span class="acc__marker acc__marker--sage">☾</span>
+              <span class="acc__title">Routine du soir</span>
+              <svg class="acc__chevron" width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="acc__body">
+              <div class="step"><span class="step__num step__num--sage">1</span><p>Après démaquillage et douche : nettoyant (gel ou mousse) pour finir d'éliminer les résidus.</p></div>
+              <div class="step"><span class="step__num step__num--sage">2</span><p>Exfoliant doux, 2 à 3 fois par semaine, pour affiner le grain de peau.</p></div>
+              <div class="step"><span class="step__num step__num--sage">3</span><p>Tonique pour préparer la peau aux soins suivants.</p></div>
+              <div class="step"><span class="step__num step__num--sage">4</span><p>Sérum ciblé (acide hyaluronique, rétinol...) le soir, car certains actifs sont sensibles à la lumière.</p></div>
+              <div class="step"><span class="step__num step__num--sage">5</span><p>Crème de nuit, plus riche que celle du matin.</p></div>
+              <div class="step"><span class="step__num step__num--sage">6</span><p>Soin des mains et des pieds : crème + huile à cuticules, pour nourrir aussi les ongles.</p></div>
+              <div class="tip tip--sage"><span class="tip__label">Astuce</span>L'huile à cuticules du soir prolonge aussi la tenue de tes poses de gel et de vernis.</div>
+            </div>
+          </details>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <p class="footer">Routine donnée à titre indicatif — adapte les produits et les gestes à ta peau, tes ongles et ce que tu as sous la main. 🤍</p>
+
+</body>
+</html>
